@@ -5,4 +5,4 @@
 | Day | Language | Notes                                                                   |
 |-----|----------|-------------------------------------------------------------------------|
 | 1   | Bash     | Definitely not made for this sort of stuff                              |
-| 2   | Racket   | I feel bad for Waterloo first years (and anyone taking CSC324 at UofT). |
+| 2   | Racket   | The bane of all Waterloo first years                                    |
