@@ -4,5 +4,6 @@
 
 | Day | Language | Notes                                                                   |
 |-----|----------|-------------------------------------------------------------------------|
-| 1   | Bash     | Definitely not made for this sort of stuff                              |
-| 2   | Racket   | The bane of all Waterloo first years                                    |
+| 1   | SQL      | Definitely not made for this sort of stuff, did have to preprocess      |
+| 2   | Bash     | Also not made for this sort of stuff                                    |
+| 3   | Racket   | The bane of all Waterloo first years                                    |
