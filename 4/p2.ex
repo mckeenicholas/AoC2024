@@ -18,15 +18,13 @@ defmodule P2 do
   end
 
   def count(grid) do
-    directions = [{1, 1}, {1, -1}]
-
     grid
     |> Enum.with_index()
     |> Enum.reduce(0, fn {row, x}, acc ->
       (acc + Enum.with_index(row))
       |> Enum.reduce(0, fn {_, y}, count ->
         count +
-          Enum.reduce(directions, 0, fn {dx, dy}, sum ->
+          Enum.reduce([{1, 1}, {1, -1}], 0, fn {dx, dy}, sum ->
             sum + check(grid, x, y, dx, dy)
           end)
       end)
