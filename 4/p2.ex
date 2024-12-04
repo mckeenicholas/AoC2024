@@ -7,8 +7,8 @@ defmodule P2 do
       acc == @word or acc == @reverse_word ->
         1
 
-      String.length(acc) < String.length(@word) and x < length(grid) and y >= 0 and
-          y < String.length(Enum.at(grid, x)) ->
+      String.length(acc) < String.length(@word) and
+        x < length(grid) and y >= 0 and y < String.length(Enum.at(grid, x)) ->
         next_char = String.at(Enum.at(grid, x), y)
         check(grid, x + dx, y + dy, dx, dy, acc <> next_char)
 
@@ -18,22 +18,19 @@ defmodule P2 do
   end
 
   def count(grid) do
+    directions = [{1, 1}, {1, -1}]
+
     grid
     |> Enum.with_index()
-    |> Enum.map(fn {row, x} ->
-      row
-      |> String.graphemes()
-      |> Enum.with_index()
-      |> Enum.map(fn {_, y} ->
-        if check(grid, x, y, 1, 1) == 1 and check(grid, x, y + 2, 1, -1) == 1 do
-          1
-        else
-          0
-        end
+    |> Enum.reduce(0, fn {row, x}, acc ->
+      (acc + Enum.with_index(row))
+      |> Enum.reduce(0, fn {_, y}, count ->
+        count +
+          Enum.reduce(directions, 0, fn {dx, dy}, sum ->
+            sum + check(grid, x, y, dx, dy)
+          end)
       end)
-      |> Enum.sum()
     end)
-    |> Enum.sum()
   end
 
   def read_grid_from_file do

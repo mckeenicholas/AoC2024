@@ -3,38 +3,35 @@ defmodule P1 do
   @reverse_word String.reverse(@word)
 
   def check(grid, x, y, dx, dy, acc \\ "") do
-    cond do
-      acc == @word or acc == @reverse_word ->
-        1
+    if acc == @word or acc == @reverse_word do
+      1
+    else
+      next_x = x + dx
+      next_y = y + dy
 
-      String.length(acc) < String.length(@word) and x < length(grid) and y >= 0 and
-          y < String.length(Enum.at(grid, x)) ->
-        next_char = String.at(Enum.at(grid, x), y)
-        check(grid, x + dx, y + dy, dx, dy, acc <> next_char)
-
-      true ->
+      if String.length(acc) < String.length(@word) and
+           next_x < length(grid) and next_y >= 0 and
+           next_y < String.length(Enum.at(grid, x)) do
+        next_char = String.at(Enum.at(grid, next_x), next_y)
+        check(grid, next_x, next_y, dx, dy, acc <> next_char)
+      else
         0
+      end
     end
   end
 
   def count(grid) do
     grid
     |> Enum.with_index()
-    |> Enum.map(fn {row, x} ->
-      row
-      |> String.graphemes()
-      |> Enum.with_index()
-      |> Enum.flat_map(fn {_, y} ->
-        [
-          check(grid, x, y, 0, 1),
-          check(grid, x, y, 1, 0),
-          check(grid, x, y, 1, 1),
-          check(grid, x, y, 1, -1)
-        ]
+    |> Enum.reduce(0, fn {row, x}, acc ->
+      (acc + Enum.with_index(row))
+      |> Enum.reduce(0, fn {_, y}, row_acc ->
+        row_acc +
+          Enum.reduce([{0, 1}, {1, 0}, {1, 1}, {1, -1}], 0, fn {dx, dy}, sum ->
+            sum + check(grid, x, y, dx, dy)
+          end)
       end)
-      |> Enum.sum()
     end)
-    |> Enum.sum()
   end
 
   def read_grid_from_file do
