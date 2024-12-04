@@ -7,3 +7,4 @@
 | 1   | SQL      | Definitely not made for this sort of stuff, did have to preprocess      |
 | 2   | Bash     | Also not made for this sort of stuff                                    |
 | 3   | Racket   | The bane of all Waterloo first years                                    |
+| 4   | Elixir   | Pipe operator is really nice                                            |
