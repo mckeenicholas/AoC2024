@@ -8,3 +8,5 @@
 | 2   | Bash     | Also not made for this sort of stuff                                    |
 | 3   | Racket   | The bane of all Waterloo first years                                    |
 | 4   | Elixir   | Pipe operator is really nice                                            |
+| 5   | Haskell  | A monad is a monoid in the category of endofunctors...                  |
+    
