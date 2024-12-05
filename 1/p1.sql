@@ -3,10 +3,12 @@ DROP TABLE IF EXISTS input;
 CREATE TABLE input (
   id SERIAL PRIMARY KEY,
   val1 INTEGER,
+  dummy1 TEXT,
+  dummy2 TEXT,
   val2 INTEGER
 );
 
-\copy input (val1, val2) FROM './input_processed.txt' WITH DELIMITER ' ';
+\copy input (val1, dummy1, dummy2, val2) FROM './input.txt' WITH DELIMITER ' ';
 
 WITH sorted_vals AS (
     SELECT 
