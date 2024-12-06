@@ -7,4 +7,6 @@
 | 1   | SQL      | Definitely not made for this sort of stuff, did have to preprocess      |
 | 2   | Bash     | Also not made for this sort of stuff                                    |
 | 3   | Racket   | The bane of all Waterloo first years                                    |
-| 4   | Elixir   | Interesting language, setting up mix was a pain though even with docker |
+| 4   | Elixir   | Pipe operator is really nice                                            |
+| 5   | Haskell  | A monad is a monoid in the category of endofunctors...                  |
+| 6   | Scala    | Seems like a functional language with the boilerplate of java...        |
