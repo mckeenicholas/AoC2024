@@ -10,3 +10,4 @@
 | 4   | Elixir   | Pipe operator is really nice                                            |
 | 5   | Haskell  | A monad is a monoid in the category of endofunctors...                  |
 | 6   | Scala    | Seems like a functional language with the boilerplate of java...        |
+| 7   | Pascal   | I miss regex (also ints being 16 bits really threw me off)              |

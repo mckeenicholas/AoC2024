@@ -1,3 +1,4 @@
 input.txt
 input_processed.txt
 *.class
+*.o
