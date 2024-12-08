@@ -12,7 +12,7 @@ var
   target: Int64;
   values: string;
   equation: IntArray;
-  numValues: Integer;
+  nVals: Integer;
   total: Int64;
 
 procedure SplitLine(const line: string; var target: Int64; var values: string);
@@ -32,7 +32,7 @@ begin
   end;
 end;
 
-procedure ParseValues(const values: string; var equation: IntArray; var numValues: Integer);
+procedure ParseValues(const values: string; var equation: IntArray; var nVals: Integer);
 var
   start, len, eqIdx: Integer;
   value: string;
@@ -59,7 +59,7 @@ begin
     Inc(start);
   end;
 
-  numValues := eqIdx;
+  nVals := eqIdx;
 end;
 
 function CalculateSequence(target: Int64; acc: Int64; const equation: IntArray; idx, len: Integer): Boolean;
@@ -85,9 +85,9 @@ begin
     ReadLn(inputFile, line);
 
     SplitLine(line, target, values);
-    ParseValues(values, equation, numValues);
+    ParseValues(values, equation, nVals);
 
-    if CalculateSequence(target, 0, equation, 1, numValues) then
+    if CalculateSequence(target, 0, equation, 1, nVals) then
     begin
       total := total + target;
     end;
