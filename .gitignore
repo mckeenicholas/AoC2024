@@ -3,3 +3,5 @@ input_processed.txt
 *.class
 *.o
 tests
+*.out
+*.exe

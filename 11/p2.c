@@ -2,7 +2,7 @@
 #include "stdlib.h"
 #include "math.h"
 
-#include "input.h"
+#include "input.h" // This just contains a macro with the input list so its not included in github
 
 #define BUCKETS 10000
 #define ull unsigned long long
