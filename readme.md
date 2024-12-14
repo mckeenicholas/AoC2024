@@ -17,5 +17,5 @@
 | 11  | C        | Good old C, with all the memory leaks as well.                                                 |
 | 12  | Dart     | Not that bad of a language, a bit surprised actually it's not more popular outside of Flutter. |
 | 13  | Swift    | Same as yesterday, not bad, but I see why Go/Rust/Nim are more popular outside of Apple stuff. |
-
+| 14  | C++      | C++ makes it harder [to screw up], but when you do it blows your whole leg off                 |
 

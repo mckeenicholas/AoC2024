@@ -1,5 +1,6 @@
 input.txt
 input_processed.txt
+out.txt
 *.class
 *.o
 tests
