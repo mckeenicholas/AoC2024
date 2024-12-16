@@ -76,7 +76,17 @@ func P2() {
 					board[newY][newX] = '@'
 
 					for _, move := range moves {
-						board[move.y][move.x] = move.newchar
+						unique := true
+						for _, other := range moves {
+							if move.x == other.x && move.y == other.y && move.newchar == '.' && other.newchar != '.' {
+								unique = false
+								break
+							}
+						}
+
+						if unique {
+							board[move.y][move.x] = move.newchar
+						}
 					}
 
 					robotX, robotY = newX, newY
@@ -90,13 +100,20 @@ func P2() {
 			}
 		}
 
-		fmt.Println("Move: ", string(move))
-		PrintBoard(board)
-
 	}
 
-	fmt.Println("Final Board:")
-	PrintBoard(board)
+	sum := 0
+
+	for y, row := range board {
+		for x, char := range row {
+			if char == '[' {
+				sum += x + y*100
+			}
+		}
+	}
+
+	printBoardBot(robotX, robotY, board)
+	fmt.Println(sum)
 }
 
 type moveinstr struct {
@@ -116,9 +133,6 @@ func tryPushBoxVertical(board [][]rune, x, y, dy int) (bool, []moveinstr) {
 	}
 
 	newY := y + dy
-	if newY < 0 || newY >= len(board) {
-		return false, nil
-	}
 
 	leftDest := board[newY][leftX]
 	rightDest := board[newY][rightX]
@@ -128,7 +142,19 @@ func tryPushBoxVertical(board [][]rune, x, y, dy int) (bool, []moveinstr) {
 		return true, moves
 	} else if leftDest == '#' || rightDest == '#' {
 		return false, nil
-	} else if leftDest == '.' || rightDest == '.' {
+	} else if leftDest == '.' {
+		if success, subMoves := tryPushBoxVertical(board, rightX, newY, dy); success {
+			moves = append(moves, subMoves...)
+			moves = append(moves, moveinstr{leftX, newY, '['}, moveinstr{rightX, newY, ']'}, moveinstr{leftX, y, '.'}, moveinstr{rightX, y, '.'})
+			return true, moves
+		}
+	} else if rightDest == '.' {
+		if success, subMoves := tryPushBoxVertical(board, leftX, newY, dy); success {
+			moves = append(moves, subMoves...)
+			moves = append(moves, moveinstr{leftX, newY, '['}, moveinstr{rightX, newY, ']'}, moveinstr{leftX, y, '.'}, moveinstr{rightX, y, '.'})
+			return true, moves
+		}
+	} else if leftDest == '[' && rightDest == ']' {
 		if success, subMoves := tryPushBoxVertical(board, leftX, newY, dy); success {
 			moves = append(moves, subMoves...)
 			moves = append(moves, moveinstr{leftX, newY, '['}, moveinstr{rightX, newY, ']'}, moveinstr{leftX, y, '.'}, moveinstr{rightX, y, '.'})
@@ -146,6 +172,19 @@ func tryPushBoxVertical(board [][]rune, x, y, dy int) (bool, []moveinstr) {
 	}
 
 	return false, nil
+}
+
+func printBoardBot(x int, y int, board [][]rune) {
+	for r, row := range board {
+		for c, char := range row {
+			if x == c && y == r {
+				fmt.Print("@")
+			} else {
+				fmt.Print(string(char))
+			}
+		}
+		fmt.Println("")
+	}
 }
 
 func tryPushBoxHorizontal(board [][]rune, x, y, dx int) bool {

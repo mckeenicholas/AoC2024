@@ -58,7 +58,6 @@ func P1() {
 		}
 	}
 
-	fmt.Println("Final Board:")
 	PrintBoard(board)
 
 	score := 0
