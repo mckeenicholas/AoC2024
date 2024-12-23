@@ -46,10 +46,6 @@ pub struct Reindeer {
 }
 
 fn main() {
-    p1();
-}
-
-pub fn p1() {
     let input = fs::read_to_string("input.txt").unwrap();
     let lines = input.split("\n");
 
@@ -62,7 +58,7 @@ pub fn p1() {
     let mut target_y = 0;
 
     let board: Vec<Vec<MazeTile>> = lines
-        .enumerate() 
+        .enumerate()
         .map(|(row_idx, line)| {
             line.chars()
                 .enumerate()
@@ -97,11 +93,15 @@ pub fn p1() {
     }
 
     let mut min_score = i32::MAX;
-    let mut reindeer_end = Reindeer {r: 0, c: 0, dir: Direction::East};
+    let mut reindeer_end = Reindeer {
+        r: 0,
+        c: 0,
+        dir: Direction::East,
+    };
 
     let mapping = bfs(&board, &reindeer);
     for dir in Direction::all() {
-        if let Some(score) = mapping.get(&(target_x, target_y, dir.clone())) {            
+        if let Some(score) = mapping.get(&(target_x, target_y, dir.clone())) {
             if *score < min_score {
                 reindeer_end = Reindeer {
                     r: target_x,
@@ -115,14 +115,14 @@ pub fn p1() {
 
     let len = backtrack(&board, mapping, &reindeer_end, min_score);
 
-    println!("spots: {}", len);
+    println!("{}", len);
 }
 
 fn backtrack(
     board: &Vec<Vec<MazeTile>>,
     visited: HashMap<(i32, i32, Direction), i32>,
     reindeer_end: &Reindeer,
-    min_cost: i32
+    min_cost: i32,
 ) -> i32 {
     let rows = board.len() as i32;
     let cols = board[0].len() as i32;
@@ -130,7 +130,12 @@ fn backtrack(
     let mut queue: VecDeque<(i32, i32, i32, Direction)> = VecDeque::new();
     let mut best_paths: HashSet<(i32, i32)> = HashSet::new();
 
-    queue.push_back((reindeer_end.r, reindeer_end.c, min_cost, reindeer_end.dir.clone()));
+    queue.push_back((
+        reindeer_end.r,
+        reindeer_end.c,
+        min_cost,
+        reindeer_end.dir.clone(),
+    ));
 
     while let Some((r, c, score, dir)) = queue.pop_front() {
         for search_dir in Direction::all().iter() {
@@ -146,11 +151,7 @@ fn backtrack(
             {
                 for last_dir in Direction::all().iter() {
                     if let Some(last_score) = visited.get(&(back_r, back_c, last_dir.clone())) {
-                        let cost = 1 + if dir != last_dir.clone() {
-                            1000
-                        } else {
-                            0
-                        };
+                        let cost = 1 + if dir != last_dir.clone() { 1000 } else { 0 };
 
                         if last_score + cost == score {
                             best_paths.insert((back_r, back_c));
