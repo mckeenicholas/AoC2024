@@ -44,12 +44,12 @@ _start:
 	
 	mov rax, 2                   ; SYS_OPEN
 	lea rdi, [filename]
-	mov rsi, 0                   ; O_RDONLY
+	xor rsi, rsi                 ; O_RDONLY
 	syscall
 	
 	mov [fd], rax
 	
-	mov rax, 0                   ; SYS_READ
+	xor rax, rax                 ; SYS_READ
 	mov rdi, [fd]
 	lea rsi, [buf]
 	mov rdx, BUFFER_SIZE
